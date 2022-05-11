@@ -9,3 +9,41 @@ insert into Salesman values (001,'Seegan','9-05-2000','C1'),(002,'Vishwas','9-05
 insert into Trip values (100,'bangalore','calcutta','5-5-2022','10-5-2022'),(200,'bangalore','chennai','5-5-2022','20-5-2022'),(120,'bangalore','mumbai','5-5-2022','15-5-2022')
 insert into Expense values(100,15000),(200,5000),(120,12000)
 insert into SalesmanTrip values (100,003),(200,001),(120,011)
+
+select t.*, e.amount from
+Trip as t, Expense as e
+where tno = eid and amount >10000
+
+select s.sno, s.s_name
+from Salesman as s
+where s.sno in (select st.sno 
+			   from SalesmanTrip as st, Trip as t
+				where t.to_city = 'calcutta' and st.tno = t.tno
+			   )
+
+/---not working----\			   
+/*Delete from Trip
+where Trip.tno in (select t.tno
+				  from Trip as t, SalesmanTrip as st, Expense as e
+				  where e.amount > 14000 and e.eid = t.tno and st.sno in(select s.sno 
+																		  from Salesman as s, Department as d
+																		  where s.dept_no = d.dept_no and d.dept_name = 'computer'
+				  														  ) 
+				  )*/
+				  
+/-----------------------------------------------------------------------------\
+create view maximum as
+select sno, count(sno) as no
+from SalesmanTrip
+group by sno 
+select max(no) from maximum
+
+select m.sno 
+from maximum as m
+where no in(select max(no) from maximum)
+
+select d.dept_name
+from Department d, Salesman s
+where d.dept_no = s.dept_no and s.sno in (select m.sno 
+from maximum as m
+where no in(select max(no) from maximum))
