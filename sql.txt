@@ -1,0 +1,5 @@
+create table Department(dept_no int primary key not null, dept_name char(20))
+create table Salesman(sno int primary key not null, s_name char(20), start_year date, dept_no int, foreign key(dept_no) references Department(dept_no))
+create table Trip(tno int primary key not null, from_city char(20), to_city char(20), departure_date date, return_date date)
+create table Expense(eid int not null, amount int, foreign key(eid) references Trip(tno))
+create table SalesmanTrip(tno int, sno int, foreign key(tno) references Trip(tno), foreign key(sno) references Salesman(sno))
