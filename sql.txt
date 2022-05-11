@@ -3,3 +3,9 @@ create table Salesman(sno int primary key not null, s_name char(20), start_year 
 create table Trip(tno int primary key not null, from_city char(20), to_city char(20), departure_date date, return_date date)
 create table Expense(eid int not null, amount int, foreign key(eid) references Trip(tno))
 create table SalesmanTrip(tno int, sno int, foreign key(tno) references Trip(tno), foreign key(sno) references Salesman(sno))
+
+insert into Department values('C1','computer'),('E2','electronics'),('M3','Mechanical')
+insert into Salesman values (001,'Seegan','9-05-2000','C1'),(002,'Vishwas','9-05-2001','C1'),(003,'Vachan','11-05-2000','C1'),(004,'Preran','9-05-2000','C1'),(011,'Pawan','9-10-2000','E2'),(012,'Kiran','9-05-2002','E2'),(021,'Yash','9-05-1999','M3')
+insert into Trip values (100,'bangalore','calcutta','5-5-2022','10-5-2022'),(200,'bangalore','chennai','5-5-2022','20-5-2022'),(120,'bangalore','mumbai','5-5-2022','15-5-2022')
+insert into Expense values(100,15000),(200,5000),(120,12000)
+insert into SalesmanTrip values (100,003),(200,001),(120,011)
